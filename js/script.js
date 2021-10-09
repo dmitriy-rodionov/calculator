@@ -17,96 +17,85 @@ const zero = document.getElementById('#0'),
       minus = document.getElementById('#minus'),
       plus = document.getElementById('#plus'),
       input = document.querySelector('.calc__input');
-let firstValue = 0,
-    secondValue = 0,
-    operation,
-    result = 0,
-    counter = 0;
+      topArea = document.querySelector('.calc__top-area');
+let result = '';
 
 erase.addEventListener('click', () => {
     input.value = input.value.slice(0, -1);
 });      
 zero.addEventListener('click', () => {
     input.value += 0;
+    result += '0';
 });
 one.addEventListener('click', () => {
     input.value += 1;
+    result += '1';
 });
 two.addEventListener('click', () => {
     input.value += 2;
+    result += '2';
 });
 three.addEventListener('click', () => {
     input.value += 3;
+    result += '3';
 });
 four.addEventListener('click', () => {
     input.value += 4;
+    result += '4';
 });
 five.addEventListener('click', () => {
     input.value += 5;
+    result += '5';
 });
 six.addEventListener('click', () => {
     input.value += 6;
+    result += '6';
 });
 seven.addEventListener('click', () => {
     input.value += 7;
+    result += '7';
 });
 eight.addEventListener('click', () => {
     input.value += 8;
+    result += '8';
 });
 nine.addEventListener('click', () => {
     input.value += 9;
+    result += '9';
 });
 dot.addEventListener('click', () => {
     input.value += '.';
+    result += '.';
 });
 del.addEventListener('click', () => {
     input.value = '';
-    firstValue = 0;
-    secondValue = 0;
-    operation = '';
-    result = 0;
-    counter = 0;
+    result = '';
+    topArea.innerHTML = '';
 });
 
-
-plus.addEventListener('click', addition);
-minus.addEventListener('click', subtraction);
+plus.addEventListener('click', () => {
+    result += '+';
+    input.value = '';
+    topArea.innerHTML = result;
+});
+minus.addEventListener('click', () => {
+    result += '-';
+    input.value = '';
+    topArea.innerHTML = result;
+});
+multiply.addEventListener('click', () => {
+    result += '*';
+    input.value = '';
+    topArea.innerHTML = result;
+});
+divide.addEventListener('click', () => {
+    result += '/';
+    input.value = '';
+    topArea.innerHTML = result;
+});
 
 equal_sign.addEventListener('click', () => {
-    counter = 0;
-    secondValue = +input.value;
-    if(operation == 'addition') {
-        input.value = +firstValue + +secondValue;
-    }
-    if(operation == 'subtraction') {
-        input.value = +firstValue - +secondValue;
-    }
+    result = eval(result);
+    input.value = result;
+    topArea.innerHTML = result;
 });
-
-function addition() {
-    counter++;
-    operation = 'addition';
-    if(counter == 1) {
-        firstValue = +input.value;
-        result = +input.value;
-        input.value = '';
-    }
-    if(counter > 1) {
-        firstValue = firstValue + +input.value;
-        // result = result + +input.value;
-        input.value = '';
-    }
-}
-
-function subtraction() {
-    counter++;
-    operation = 'subtraction';
-    if(counter == 1) {
-        firstValue = +input.value;
-        input.value = '';
-    }
-    if(counter > 1) {
-        firstValue = firstValue - +input.value;
-        input.value = '';
-    }
-}
